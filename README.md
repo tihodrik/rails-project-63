@@ -1,26 +1,38 @@
 # HexletCode
-### Hexlet tests and linter status:
-[![Actions Status](https://github.com/tihodrik/rails-project-63/workflows/hexlet-check/badge.svg)](https://github.com/tihodrik/rails-project-63/actions)
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hexlet_code`. To experiment with that code, run `bin/console` for an interactive prompt.
+HexletCode is a simple form generation DSL. Use for generatng forms in sites templates.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ bundle add hexlet_code
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ gem install hexlet_code
 
 ## Usage
 
-TODO: Write usage instructions here
+    User = Struct.new(:id, :name, :job)
+
+    user = User.new
+
+    html = HexletCode.form_for user, url: '/users' do |f|
+      f.input :name
+      f.input :job, as: :text
+      f.submit
+    end
+
+    puts html
+    
+    # <form action="/users" method="post">
+    #   <label for="name">Name</label>
+    #   <input name="name" value="" type="text">
+    #   <label for="job">Job</label>
+    #   <textarea cols="20" rows="40" name="job"></textarea>
+    #   <input type="submit" value="Create">
+    # </form>
 
 ## Development
 
@@ -30,4 +42,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hexlet_code.
+Bug reports and pull requests are welcome on GitHub at https://github.com/tihodrik/hexlet_code.
+
+## Hexlet tests and linter status:
+[![Actions Status](https://github.com/tihodrik/rails-project-63/workflows/hexlet-check/badge.svg)](https://github.com/tihodrik/rails-project-63/actions)
