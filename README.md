@@ -1,6 +1,6 @@
 # HexletCode
 
-HexletCode is a simple form generation DSL. Use for generatng forms in sites templates.
+HexletCode is a simple form generation DSL. Use it for generatng forms in sites' templates.
 
 ## Installation
 
