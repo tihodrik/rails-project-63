@@ -45,4 +45,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 Bug reports and pull requests are welcome on GitHub at https://github.com/tihodrik/hexlet_code.
 
 ## Hexlet tests and linter status:
-[![Actions Status](https://github.com/tihodrik/rails-project-63/workflows/hexlet-check/badge.svg)](https://github.com/tihodrik/rails-project-63/actions)
+[![hexlet-check](https://github.com/tihodrik/rails-project-63/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/tihodrik/rails-project-63/actions/workflows/hexlet-check.yml)
+[![CI](https://github.com/tihodrik/rails-project-63/actions/workflows/CI.yml/badge.svg)](https://github.com/tihodrik/rails-project-63/actions/workflows/CI.yml)
