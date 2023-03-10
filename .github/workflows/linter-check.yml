@@ -1,0 +1,8 @@
+name: linter-check
+on: [push]
+jobs:
+  check-with-linter:
+    runs-on: ubuntu-latest
+      steps:
+        - name: call make shortcut
+          run: make lint
