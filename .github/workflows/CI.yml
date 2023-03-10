@@ -1,4 +1,4 @@
-name: linter-check
+name: CI
 on: [push]
 jobs:
   check-with-linter:
@@ -14,5 +14,8 @@ jobs:
       - name: Install dependencies
         run: make install
 
-      - name: rubocop
+      - name: Rubocop check
         run: make lint
+
+      - name: Minitest check
+        run: make test
