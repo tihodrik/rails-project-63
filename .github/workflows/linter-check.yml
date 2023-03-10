@@ -4,5 +4,5 @@ jobs:
   check-with-linter:
     runs-on: ubuntu-latest
     steps:
-      - name: call make shortcut
-        run: rubocop .
+      - name: rubocop
+        run: bundle exec rubocop
