@@ -3,6 +3,6 @@ on: [push]
 jobs:
   check-with-linter:
     runs-on: ubuntu-latest
-      steps:
-        - name: call make shortcut
-          run: make lint
+    steps:
+      - name: call make shortcut
+        run: make lint
