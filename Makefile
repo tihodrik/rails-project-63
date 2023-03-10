@@ -4,4 +4,4 @@ install:
 lint:
 	rubocop .
 
-	.PHONY: test
+.PHONY: test
