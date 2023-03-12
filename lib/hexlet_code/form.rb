@@ -29,7 +29,7 @@ module HexletCode
     end
 
     def submit(text = 'Save')
-      body << "\n" << Tag.build('input', type: "submit", value: text)
+      body << "\n" << Tag.build('input', type: 'submit', value: text)
     end
 
     private
