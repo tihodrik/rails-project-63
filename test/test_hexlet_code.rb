@@ -7,7 +7,19 @@ class TestHexletCode < Minitest::Test
     refute_nil ::HexletCode::VERSION
   end
 
-  def test_it_does_something_useful
-    skip
+  def test_that_form_for_creates_forms_code_without_url
+    instance = 'some_instance'
+    code = HexletCode.form_for instance do |_f|
+      instance
+    end
+    assert_equal code, '<form action="#" method="post"></form>'
+  end
+
+  def test_that_form_for_creates_forms_code_with_url
+    user = 'some_user'
+    code = HexletCode.form_for user, url: '/users' do |_f|
+      user
+    end
+    assert_equal code, '<form action="/users" method="post"></form>'
   end
 end
