@@ -18,7 +18,7 @@ module HexletCode
     end
 
     def input(field, as: nil, **params)
-      body << "\n"
+      body << "\n" << label(field) << "\n"
 
       case as
       when nil
@@ -26,6 +26,10 @@ module HexletCode
       when :text
         body << Tag.build('textarea', **get_textarea_options(field, params)) { instance.public_send(field) }
       end
+    end
+
+    def submit(text = 'Save')
+      body << "\n" << Tag.build('input', type: "submit", value: text)
     end
 
     private
@@ -44,6 +48,10 @@ module HexletCode
         cols: params[:cols] || 20,
         rows: params[:cols] || 40
       }.merge(params)
+    end
+
+    def label(field)
+      Tag.build('label', for: field.to_s) { field.to_s.capitalize }
     end
   end
 end

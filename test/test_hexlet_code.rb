@@ -83,4 +83,28 @@ class TestHexletCode < Minitest::Test
       end
     end
   end
+
+  def test_that_form_for_creates_standard_submit_button
+    fixture = File.read('test/fixtures/form_for_with_standard_submit_button.html')
+
+    code = HexletCode.form_for user, url: '#' do |f|
+      f.input :name
+      f.input :job
+      f.submit
+    end
+
+    assert_equal code, fixture
+  end
+
+  def test_that_form_for_creates_custom_submit_button
+    fixture = File.read('test/fixtures/form_for_with_custom_submit_button.html')
+
+    code = HexletCode.form_for user, url: '#' do |f|
+      f.input :name
+      f.input :job
+      f.submit 'Wow'
+    end
+
+    assert_equal code, fixture
+  end
 end

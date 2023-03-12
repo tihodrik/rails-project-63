@@ -7,7 +7,7 @@ module HexletCode
 
   def self.form_for(instance, url: '#')
     f = Form.new(instance, url)
-    yield(f)
+    yield(f) if block_given?
     f.generate
   end
 end
