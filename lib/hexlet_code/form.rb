@@ -18,23 +18,32 @@ module HexletCode
     end
 
     def input(field, as: nil, **params)
-      options = {
-        name: field.to_s
-      }
+      body << "\n"
 
       case as
       when nil
-        tag = 'input'
-        options[:type] = 'text'
-        options[:value] = instance.public_send(field)
-        body << "\n" << Tag.build(tag, **options.merge!(params))
+        body << Tag.build('input', **get_input_options(field, params))
       when :text
-        tag = 'textarea'
-        options[:cols] = params[:cols] || 20
-        options[:rows] = params[:cols] || 40
-        body << "\n" << Tag.build(tag, **options.merge(params)) { instance.public_send(field) }
+        body << Tag.build('textarea', **get_textarea_options(field, params)) { instance.public_send(field) }
       end
     end
-  end
 
+    private
+
+    def get_input_options(field, params)
+      {
+        name: field.to_s,
+        type: 'text',
+        value: instance.public_send(field)
+      }.merge(params)
+    end
+
+    def get_textarea_options(field, params)
+      {
+        name: field.to_s,
+        cols: params[:cols] || 20,
+        rows: params[:cols] || 40
+      }.merge(params)
+    end
+  end
 end
