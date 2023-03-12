@@ -3,9 +3,11 @@
 require_relative 'hexlet_code/version'
 
 module HexletCode
-  autoload(:Tag, 'hexlet_code/tag.rb')
+  autoload(:Form, 'hexlet_code/form.rb')
 
-  def self.form_for(_instance, url: '#')
-    "<form action=\"#{url}\" method=\"post\"></form>"
+  def self.form_for(instance, url: '#')
+    f = Form.new(instance, url)
+    yield(f)
+    f.generate
   end
 end
