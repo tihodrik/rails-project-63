@@ -4,17 +4,17 @@ module HexletCode
   class Form
     autoload(:Tag, 'hexlet_code/tag.rb')
 
-    attr_reader :instance, :url
+    attr_reader :instance, :options
     attr_accessor :body
 
-    def initialize(instance, url)
+    def initialize(instance, **options)
       @instance = instance
-      @url = url
+      @options = options
       @body = String.new
     end
 
     def generate
-      "<form action=\"#{url}\" method=\"post\">#{body}\n</form>"
+      Tag.build('form', action: http_action, method: http_method, **options.except(:url, :method)) { body << "\n" }
     end
 
     def input(field, as: nil, **params)
@@ -48,6 +48,14 @@ module HexletCode
         cols: params[:cols] || 20,
         rows: params[:cols] || 40
       }.merge(params)
+    end
+
+    def http_action
+      options[:url] || '#'
+    end
+
+    def http_method
+      options[:method] || 'post'
     end
 
     def label(field)

@@ -4,7 +4,7 @@ module HexletCode
   module Tag
     TAGS = {
       single: %w[img input br],
-      paired: %w[label div textarea]
+      paired: %w[label div textarea form]
     }.freeze
 
     def self.paired?(tag)
