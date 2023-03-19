@@ -57,7 +57,7 @@ class TestHexletCode < Minitest::Test
     fixture = File.read('test/fixtures/form_for_user_textarea_with_redefined_params.html')
 
     code = HexletCode.form_for user, url: '#' do |f|
-      f.input :job, as: :text, rows: 50, cols: 50
+      f.input :job, as: :text, cols: 50, rows: 50
     end
 
     assert_equal code, fixture

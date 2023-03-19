@@ -1,65 +1,70 @@
 # frozen_string_literal: true
 
+class String
+  def constantize
+    Object.const_get(self)
+  end
+end
+
 module HexletCode
   class Form
-    autoload(:Tag, 'hexlet_code/tag.rb')
+    require_relative 'wrappers/html_wrapper'
 
-    attr_reader :instance, :options
-    attr_accessor :body
+    autoload(:Input, 'hexlet_code/input.rb')
+    autoload(:Textarea, 'hexlet_code/textarea.rb')
+    autoload(:Label, 'hexlet_code/label.rb')
+    autoload(:Submit, 'hexlet_code/submit.rb')
+
+    DEFAULTS = { action: '#', method: 'post' }.freeze
+
+    attr_accessor :instance, :wrapper, :options, :body
 
     def initialize(instance, **options)
       @instance = instance
-      @options = options
-      @body = String.new
+      @wrapper =  if options[:wrapper].nil?
+                    HtmlWrapper.new
+                  else
+                    "HexletCode::#{options[:wrapper].capitalize}Wrapper".constantize.send('new')
+                  end
+      @options = options.except(:wrapper)
+
+      @body = []
+
+      set_defaults
     end
 
-    def generate
-      Tag.build('form', action: http_action, method: http_method, **options.except(:url, :method)) { body << "\n" }
-    end
+    def set_defaults
+      options[:action] = options.delete :url unless options[:url].nil?
 
-    def input(field, as: nil, **params)
-      body << "\n" << label(field) << "\n"
-
-      case as
-      when nil
-        body << Tag.build('input', **get_input_options(field, params))
-      when :text
-        body << Tag.build('textarea', **get_textarea_options(field, params)) { instance.public_send(field) }
+      DEFAULTS.each do |key, value|
+        options[key] ||= value
       end
     end
 
-    def submit(text = 'Save')
-      body << "\n" << Tag.build('input', type: 'submit', value: text)
+    def render
+      wrapper.render self
     end
 
-    private
+    def input(attribute_name, options = {})
+      label = Label.new(attribute_name)
+      body << label
 
-    def get_input_options(field, params)
-      {
-        name: field.to_s,
-        type: 'text',
-        value: instance.public_send(field)
-      }.merge(params)
+      input = find_input(attribute_name, options)
+      body << input
     end
 
-    def get_textarea_options(field, params)
-      {
-        name: field.to_s,
-        cols: params[:cols] || 20,
-        rows: params[:cols] || 40
-      }.merge(params)
+    def find_input(attribute_name, options = {})
+      case options[:as]
+      when :text
+        Textarea.new(attribute_name, instance.public_send(attribute_name), options.except(:as))
+      else
+        Input.new(attribute_name, instance.public_send(attribute_name), options.except(:as))
+      end
     end
 
-    def http_action
-      options[:url] || '#'
-    end
-
-    def http_method
-      options[:method] || 'post'
-    end
-
-    def label(field)
-      Tag.build('label', for: field.to_s) { field.to_s.capitalize }
+    def submit(text = nil)
+      button = Submit.new(text)
+      body << button
     end
   end
 end

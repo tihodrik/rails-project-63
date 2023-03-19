@@ -12,16 +12,18 @@ module HexletCode
     end
 
     def self.build(tag, **args)
-      result = ["<#{tag}"]
-      args.each do |key, value|
-        result << "#{key}=\"#{value}\""
-      end
-      result = result.join(' ') << '>'
+      result = "<#{tag} #{stringifyed_params(args)}>"
       if paired? tag
         result << yield if block_given?
         result << "</#{tag}>"
       end
       result
+    end
+
+    def self.stringifyed_params(params)
+      params.each_with_object([]) do |(key, value), result|
+        result << "#{key}=\"#{value}\""
+      end.join(' ')
     end
   end
 end
