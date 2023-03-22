@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-class String
-  def constantize
-    Object.const_get(self)
-  end
-end
-
 module HexletCode
   class Form
     require_relative 'wrappers/html_wrapper'
@@ -19,21 +13,20 @@ module HexletCode
 
     attr_accessor :instance, :wrapper, :options, :body
 
-    def initialize(instance, **options)
+    def initialize(instance, **params)
       @instance = instance
-      @wrapper =  if options[:wrapper].nil?
+      @wrapper =  if params[:wrapper].nil?
                     HtmlWrapper.new
                   else
-                    "HexletCode::#{options[:wrapper].capitalize}Wrapper".constantize.send('new')
+                    Object.const_get("HexletCode::#{params[:wrapper].capitalize}Wrapper").send('new')
                   end
-      @options = options.except(:wrapper)
-
+      @options = params.except(:wrapper)
       @body = []
 
-      set_defaults
+      set_options
     end
 
-    def set_defaults
+    def set_options
       options[:action] = options.delete :url unless options[:url].nil?
 
       DEFAULTS.each do |key, value|

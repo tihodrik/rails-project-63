@@ -6,15 +6,15 @@ module HexletCode
 
     attr_accessor :name, :value, :options
 
-    def initialize(attribute_name, attribute_value, options = {})
+    def initialize(attribute_name, attribute_value, params = {})
       @name = attribute_name
       @value = attribute_value
-      @options = options
+      @options = params
 
-      set_defaults
+      set_options
     end
 
-    def set_defaults
+    def set_options
       DEFAULTS.each do |key, value|
         options[key] ||= value
       end
