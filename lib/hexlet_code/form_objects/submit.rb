@@ -7,6 +7,7 @@ module HexletCode
     def initialize(attribute_value)
       @value = attribute_value || 'Save'
       @type = 'submit'
+      super()
     end
   end
 end

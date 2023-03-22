@@ -13,6 +13,7 @@ module HexletCode
       @options = params
 
       extend_options_with_defaults(DEFAULT_OPTIONS)
+      super()
     end
   end
 end

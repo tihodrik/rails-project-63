@@ -24,6 +24,8 @@ module HexletCode
                   end
       @options = params.except(:wrapper)
       extend_options_with_defaults(DEFAULT_OPTIONS)
+
+      super()
     end
 
     def render

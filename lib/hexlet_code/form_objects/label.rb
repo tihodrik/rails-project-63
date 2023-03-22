@@ -6,6 +6,7 @@ module HexletCode
 
     def initialize(attribute_name)
       @name = attribute_name.to_s
+      super()
     end
   end
 end
