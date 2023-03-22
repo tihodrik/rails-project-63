@@ -32,11 +32,11 @@ module HexletCode
       wrapper.render self
     end
 
-    def input(attribute_name, options = {})
+    def input(attribute_name, params = {})
       label = Label.new(attribute_name)
       body << label
 
-      input = find_input(attribute_name, options)
+      input = find_input(attribute_name, params)
       body << input
     end
 
