@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module HexletCode
-  class Input
-    DEFAULTS = {}.freeze
+  class Input < FormObject
+    DEFAULT_OPTIONS = {}.freeze
 
-    attr_accessor :name, :value, :type, :options
+    attr_reader :name, :value, :type
 
     def initialize(attribute_name, attribute_value, params = {})
       @name = attribute_name
@@ -12,13 +12,7 @@ module HexletCode
       @type = 'text'
       @options = params
 
-      set_options
-    end
-
-    def set_options
-      DEFAULTS.each do |key, value|
-        options[key] ||= value
-      end
+      extend_options_with_defaults(DEFAULT_OPTIONS)
     end
   end
 end
