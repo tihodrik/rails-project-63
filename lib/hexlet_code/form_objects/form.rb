@@ -12,24 +12,15 @@ module HexletCode
     DEFAULT_OPTIONS = { action: '#', method: 'post' }.freeze
 
     attr_accessor :body
-    attr_reader :instance, :wrapper
+    attr_reader :instance
 
     def initialize(instance, **params)
       @body = []
       @instance = instance
-      @wrapper =  if params[:wrapper].nil?
-                    HtmlWrapper.new
-                  else
-                    Object.const_get("HexletCode::#{params[:wrapper].capitalize}Wrapper").send('new')
-                  end
-      @options = params.except(:wrapper)
+      @options = params
       extend_options_with_defaults(DEFAULT_OPTIONS)
 
       super()
-    end
-
-    def render
-      wrapper.render self
     end
 
     def input(attribute_name, params = {})

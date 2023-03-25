@@ -7,8 +7,13 @@ module HexletCode
   autoload(:Form, 'hexlet_code/form_objects/form.rb')
 
   def self.form_for(instance, **params)
-    f = Form.new(instance, **params)
-    yield(f) if block_given?
-    f.render
+    form = Form.new(instance, **params.except(:wrapper))
+    wrapper = if params[:wrapper].nil?
+                HtmlWrapper.new
+              else
+                Object.const_get("HexletCode::#{params[:wrapper].capitalize}Wrapper").send('new')
+              end
+    yield(form) if block_given?
+    wrapper.render form
   end
 end
