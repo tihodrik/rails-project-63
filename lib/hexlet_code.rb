@@ -11,7 +11,7 @@ module HexletCode
     wrapper = if params[:wrapper].nil?
                 HtmlWrapper.new
               else
-                Object.const_get("HexletCode::#{params[:wrapper].capitalize}Wrapper").send('new')
+                Object.const_get("HexletCode::#{params[:wrapper].capitalize}Wrapper").new
               end
     yield(form) if block_given?
     wrapper.render form

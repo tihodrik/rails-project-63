@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HexletCode
-  class Textarea < FormObject
+  class TextInput < FormObject
     DEFAULT_OPTIONS = { cols: 20, rows: 40 }.freeze
 
     attr_reader :name, :value

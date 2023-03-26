@@ -25,7 +25,7 @@ module HexletCode
       Tag.build('input', name: object.name, type: object.type, value: object.value, **object.options)
     end
 
-    def render_textarea(object)
+    def render_textinput(object)
       Tag.build('textarea', name: object.name, **object.options) { object.value }
     end
 

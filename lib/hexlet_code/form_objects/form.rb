@@ -3,9 +3,9 @@
 module HexletCode
   class Form < FormObject
     require_relative '../wrappers/html_wrapper'
-
-    autoload(:Input, 'hexlet_code/form_objects/input.rb')
-    autoload(:Textarea, 'hexlet_code/form_objects/textarea.rb')
+    require_relative 'input'
+    require_relative 'text_input'
+    
     autoload(:Label, 'hexlet_code/form_objects/label.rb')
     autoload(:Submit, 'hexlet_code/form_objects/submit.rb')
 
@@ -44,12 +44,8 @@ module HexletCode
     end
 
     def find_input(attribute_name, params = {})
-      case params[:as]
-      when :text
-        Textarea.new(attribute_name, instance.public_send(attribute_name), params.except(:as))
-      else
-        Input.new(attribute_name, instance.public_send(attribute_name), params.except(:as))
-      end
+      input_class = Object.const_get("HexletCode::#{params[:as].to_s.capitalize}Input")
+      input_class.new(attribute_name, instance.public_send(attribute_name), params.except(:as))
     end
   end
 end
