@@ -5,7 +5,7 @@ module HexletCode
     require_relative '../wrappers/html_wrapper'
     require_relative 'input'
     require_relative 'text_input'
-    
+
     autoload(:Label, 'hexlet_code/form_objects/label.rb')
     autoload(:Submit, 'hexlet_code/form_objects/submit.rb')
 
