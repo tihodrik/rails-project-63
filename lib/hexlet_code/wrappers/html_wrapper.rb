@@ -5,11 +5,11 @@ module HexletCode
     autoload(:Tag, 'hexlet_code/tag.rb')
 
     def render(form)
-      body = String.new
-      form.body.each do |object|
-        body << "\n" << send("render_#{object.class.name.downcase.split('::').last}", object)
-      end
-      body << "\n"
+      body = form.body.each_with_object([]) do |element, result|
+        result << send("render_#{element.class.name.downcase.split('::').last}", element)
+      end.join("\n")
+      body = "\n#{body}\n" unless body.empty?
+
       render_form(form.options, body)
     end
 
