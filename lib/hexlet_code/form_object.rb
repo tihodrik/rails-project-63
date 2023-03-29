@@ -3,6 +3,7 @@
 module HexletCode
   class FormObject
     attr_accessor :options
+    attr_reader :keyword, :action
 
     private
 

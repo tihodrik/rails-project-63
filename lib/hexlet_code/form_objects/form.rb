@@ -2,7 +2,6 @@
 
 module HexletCode
   class Form < FormObject
-    require_relative '../wrappers/html_wrapper'
     require_relative 'input'
     require_relative 'text_input'
 
@@ -17,9 +16,12 @@ module HexletCode
     def initialize(instance, **params)
       @body = []
       @instance = instance
-      @options = params
-      extend_options_with_defaults(DEFAULT_OPTIONS)
 
+      @keyword = 'form'
+      @options = params
+      @action = nil
+
+      extend_options_with_defaults(DEFAULT_OPTIONS)
       super()
     end
 

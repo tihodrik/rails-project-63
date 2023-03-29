@@ -4,12 +4,12 @@ module HexletCode
   class TextInput < FormObject
     DEFAULT_OPTIONS = { cols: 20, rows: 40 }.freeze
 
-    attr_reader :name, :value
-
     def initialize(attribute_name, attribute_value, params = {})
-      @name = attribute_name
-      @value = attribute_value
-      @options = params
+      @keyword = 'textarea'
+      @options = {
+        name: attribute_name
+      }.merge(params)
+      @action = proc { attribute_value }
 
       extend_options_with_defaults(DEFAULT_OPTIONS)
       super()

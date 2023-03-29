@@ -2,10 +2,13 @@
 
 module HexletCode
   class Label < FormObject
-    attr_reader :name
 
     def initialize(attribute_name)
-      @name = attribute_name.to_s
+      @keyword = 'label'
+      @options = {
+        for: attribute_name.to_s
+      }
+      @action = proc { attribute_name.to_s.capitalize }
       super()
     end
   end
