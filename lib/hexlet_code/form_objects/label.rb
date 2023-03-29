@@ -2,7 +2,6 @@
 
 module HexletCode
   class Label < FormObject
-
     def initialize(attribute_name)
       @keyword = 'label'
       @options = {

@@ -2,7 +2,6 @@
 
 module HexletCode
   class Submit < FormObject
-
     def initialize(attribute_value)
       @keyword = 'input'
       @options = {
