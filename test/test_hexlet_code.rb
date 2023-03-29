@@ -19,7 +19,7 @@ class TestHexletCode < Minitest::Test
     code = HexletCode.form_for instance do |_f|
       instance
     end
-    assert_equal code, fixture(__method__)
+    assert_equal code, File.read(fixture_path(fixture_name(name)))
   end
 
   def test_it_creates_epmty_form_with_url
@@ -27,7 +27,7 @@ class TestHexletCode < Minitest::Test
     code = HexletCode.form_for user, url: '/users' do |_f|
       user
     end
-    assert_equal code, fixture(__method__)
+    assert_equal code, File.read(fixture_path(fixture_name(name)))
   end
 
   def test_it_creates_input_inside_form
@@ -35,7 +35,7 @@ class TestHexletCode < Minitest::Test
       f.input :name
     end
 
-    assert_equal code, fixture(__method__)
+    assert_equal code, File.read(fixture_path(fixture_name(name)))
   end
 
   def test_it_creates_textarea_inside_form
@@ -44,7 +44,7 @@ class TestHexletCode < Minitest::Test
       f.input :job, as: :text
     end
 
-    assert_equal code, fixture(__method__)
+    assert_equal code, File.read(fixture_path(fixture_name(name)))
   end
 
   def test_it_creates_textarea_inside_form_with_redefined_attributes
@@ -52,7 +52,7 @@ class TestHexletCode < Minitest::Test
       f.input :job, as: :text, cols: 50, rows: 50
     end
 
-    assert_equal code, fixture(__method__)
+    assert_equal code, File.read(fixture_path(fixture_name(name)))
   end
 
   def test_it_creates_input_inside_form_with_custom_params
@@ -61,7 +61,7 @@ class TestHexletCode < Minitest::Test
       f.input :job
     end
 
-    assert_equal code, fixture(__method__)
+    assert_equal code, File.read(fixture_path(fixture_name(name)))
   end
 
   def test_it_raises_error_if_undefined_param_used
@@ -81,7 +81,7 @@ class TestHexletCode < Minitest::Test
       f.submit
     end
 
-    assert_equal code, fixture(__method__)
+    assert_equal code, File.read(fixture_path(fixture_name(name)))
   end
 
   def test_it_creates_custom_submit_button
@@ -91,11 +91,14 @@ class TestHexletCode < Minitest::Test
       f.submit 'Wow'
     end
 
-    assert_equal code, fixture(__method__)
+    assert_equal code, File.read(fixture_path(fixture_name(name)))
   end
 
-  def fixture(method_name)
-    fixture_path = "test/fixtures/#{method_name.to_s.delete_prefix('test_')}.html"
-    File.read(fixture_path)
+  def fixture_name(method_name)
+    method_name.to_s.delete_prefix('test_')
+  end
+
+  def fixture_path(fixture_name)
+    "test/fixtures/#{fixture_name}.html"
   end
 end
