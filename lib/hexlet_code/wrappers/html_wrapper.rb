@@ -2,7 +2,7 @@
 
 module HexletCode
   class HtmlWrapper
-    autoload(:Tag, 'hexlet_code/tag.rb')
+    autoload(:Tag, File.join(File.dirname(__FILE__), '../tag.rb'))
 
     def render(form)
       body = if form.body.empty?

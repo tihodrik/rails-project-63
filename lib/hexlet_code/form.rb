@@ -2,12 +2,6 @@
 
 module HexletCode
   class Form < FormObject
-    require_relative 'input'
-    require_relative 'text_input'
-
-    autoload(:Label, 'hexlet_code/form_objects/label.rb')
-    autoload(:Submit, 'hexlet_code/form_objects/submit.rb')
-
     DEFAULT_OPTIONS = { action: '#', method: 'post' }.freeze
 
     attr_accessor :body
@@ -26,7 +20,7 @@ module HexletCode
     end
 
     def input(attribute_name, params = {})
-      label = Label.new(attribute_name)
+      label = HexletCode::FormObjects::Label.new(attribute_name)
       body << label
 
       input = find_input(attribute_name, params)
@@ -34,7 +28,7 @@ module HexletCode
     end
 
     def submit(text = nil)
-      button = Submit.new(text)
+      button = HexletCode::FormObjects::Submit.new(text)
       body << button
     end
 
@@ -46,7 +40,7 @@ module HexletCode
     end
 
     def find_input(attribute_name, params = {})
-      input_class = Object.const_get("HexletCode::#{params[:as].to_s.capitalize}Input")
+      input_class = Object.const_get("HexletCode::FormObjects::#{params[:as].to_s.capitalize}Input", true)
       input_class.new(attribute_name, instance.public_send(attribute_name), params.except(:as))
     end
   end
