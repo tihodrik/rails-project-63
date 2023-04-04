@@ -12,8 +12,9 @@ module HexletCode
       @instance = instance
 
       @keyword = 'form'
-      @options = params
-      @action = nil
+
+      @options = params.except(:url)
+      @options[:action] = params[:url] unless params[:url].nil?
 
       extend_options_with_defaults(DEFAULT_OPTIONS)
       super()
@@ -33,11 +34,6 @@ module HexletCode
     end
 
     private
-
-    def extend_options_with_defaults(default_options)
-      options[:action] = options.delete :url unless options[:url].nil?
-      super
-    end
 
     def find_input(attribute_name, params = {})
       input_class = Object.const_get("HexletCode::FormObjects::#{params[:as].to_s.capitalize}Input", true)

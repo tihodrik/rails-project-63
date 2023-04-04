@@ -5,12 +5,7 @@ module HexletCode
     autoload(:Tag, File.join(File.dirname(__FILE__), '../tag.rb'))
 
     def render(form)
-      body = if form.body.empty?
-               ''
-             else
-               "\n#{render_body(form.body)}\n"
-             end
-
+      body = form.body.empty? ? '' : "\n#{render_body(form.body)}\n"
       Tag.build(form.keyword, **form.options) { body }
     end
 
